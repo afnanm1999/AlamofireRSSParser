@@ -51,8 +51,8 @@ You use AlamofireRSSParser just like any other response handler in Alamofire:
 let url = "http://rss.cnn.com/rss/cnn_topstories.rss"
     
 Alamofire.request(url).responseRSS() { (response) -> Void in
-    if let feed: RSSFeed = response.result.value {
-        //do something with your new RSSFeed object!
+    if let feed: AlamofireRSSFeed = response.result.value {
+        //do something with your new AlamofireRSSFeed object!
         for item in feed.items {
             print(item)
         }
@@ -60,7 +60,7 @@ Alamofire.request(url).responseRSS() { (response) -> Void in
 }
 ```
 
-AlamofireRSSParser returns an RSSFeed object that contains an array of RSSItem objects.
+AlamofireRSSParser returns an AlamofireRSSFeed object that contains an array of AlamofireRSSItem objects.
 
 ##What It Does and Doesn't Do
 

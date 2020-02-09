@@ -11,11 +11,11 @@ import Alamofire
 
 extension Alamofire.DataRequest {
     /**
-        Creates a response serializer that returns an `RSSFeed` object initialized from the response data.
+        Creates a response serializer that returns an `AlamofireRSSFeed` object initialized from the response data.
      
         - Returns: An RSS response serializer.
      */
-    public static func RSSResponseSerializer() -> DataResponseSerializer<RSSFeed> {
+    public static func RSSResponseSerializer() -> DataResponseSerializer<AlamofireRSSFeed> {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -29,7 +29,7 @@ extension Alamofire.DataRequest {
             
             let parser = AlamofireRSSParser(data: validData)
             
-            let parsedResults: (feed: RSSFeed?, error: NSError?) = parser.parse()
+            let parsedResults: (feed: AlamofireRSSFeed?, error: NSError?) = parser.parse()
             
             if let feed = parsedResults.feed {
                 return .success(feed)
@@ -48,7 +48,7 @@ extension Alamofire.DataRequest {
         - Returns: The request.
     */
     @discardableResult
-    public func responseRSS(_ completionHandler: @escaping (DataResponse<RSSFeed>) -> Void) -> Self {
+    public func responseRSS(_ completionHandler: @escaping (DataResponse<AlamofireRSSFeed>) -> Void) -> Self {
         return response(
             responseSerializer: DataRequest.RSSResponseSerializer(),
             completionHandler: completionHandler
@@ -56,7 +56,7 @@ extension Alamofire.DataRequest {
     }
     
     
-    //public func responseRSS(parser parser: AlamofireRSSParser?, completionHandler: Response<RSSFeed, NSError> -> Void) -> Self {
+    //public func responseRSS(parser parser: AlamofireRSSParser?, completionHandler: Response<AlamofireRSSFeed, NSError> -> Void) -> Self {
     //  return response(responseSerializer: Request.RSSResponseSerializer(parser), completionHandler: completionHandler)
     //}
 }
@@ -72,10 +72,10 @@ extension Alamofire.DataRequest {
 */
 open class AlamofireRSSParser: NSObject, XMLParserDelegate {
     var parser: XMLParser? = nil
-    var feed: RSSFeed? = nil
+    var feed: AlamofireRSSFeed? = nil
     var parsingItems: Bool = false
     
-    var currentItem: RSSItem? = nil
+    var currentItem: AlamofireRSSItem? = nil
     var currentString: String!
     var currentAttributes: [String: String]? = nil
     var parseError: NSError? = nil
@@ -106,11 +106,11 @@ open class AlamofireRSSParser: NSObject, XMLParserDelegate {
     /**
         Kicks off the RSS parsing.
      
-        - Returns: A tuple containing an `RSSFeed` object if parsing was successful (`nil` otherwise) and
+        - Returns: A tuple containing an `AlamofireRSSFeed` object if parsing was successful (`nil` otherwise) and
             an `NSError` object if an error occurred (`nil` otherwise).
     */
-    func parse() -> (feed: RSSFeed?, error: NSError?) {
-        self.feed = RSSFeed()
+    func parse() -> (feed: AlamofireRSSFeed?, error: NSError?) {
+        self.feed = AlamofireRSSFeed()
         self.currentItem = nil
         self.currentAttributes = nil
         self.currentString = String()
@@ -126,7 +126,7 @@ open class AlamofireRSSParser: NSObject, XMLParserDelegate {
         self.currentAttributes = attributeDict
         
         if ((elementName == "item") || (elementName == "entry")) {
-            self.currentItem = RSSItem()
+            self.currentItem = AlamofireRSSItem()
         }
     }
     

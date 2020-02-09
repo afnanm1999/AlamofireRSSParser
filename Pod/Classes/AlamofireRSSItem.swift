@@ -1,6 +1,6 @@
 
 //
-//  RSSItem.swift
+//  AlamofireRSSItem.swift
 //  AlamofireRSSParser
 //
 //  Created by Donald Angelillo on 3/1/16.
@@ -10,9 +10,9 @@
 import Foundation
 
 /**
-    Item-level elements are deserialized into `RSSItem` objects and stored in the `items` array of an `RSSFeed` instance
+    Item-level elements are deserialized into `AlamofireRSSItem` objects and stored in the `items` array of an `AlamofireRSSFeed` instance
 */
-open class RSSItem: CustomStringConvertible {
+open class AlamofireRSSItem: CustomStringConvertible {
     open var title: String? = nil
     open var link: String? = nil
     
